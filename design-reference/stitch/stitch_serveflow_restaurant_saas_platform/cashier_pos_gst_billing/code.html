@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cashier — POS &amp; GST Billing | ServeFlow</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'info': '#0369A1',
+        'on-info': '#FFFFFF',
+        'info-container': '#E0F2FE',
+        'on-info-container': '#0C4A6E',
+        'brand-tamarind': '#9A3412',
+        'on-brand-tamarind': '#FFFFFF',
+        'brand-tamarind-container': '#FFEDD5',
+        'on-brand-tamarind-container': '#7C2D12',
+        'brand-roast': '#3F6212',
+        'on-brand-roast': '#FFFFFF',
+        'brand-roast-container': '#ECFCCB',
+        'on-brand-roast-container': '#365314',
+        'light-primary': '#001428',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#0F2942',
+        'light-on-primary-container': '#D1E4FF',
+        'light-secondary': '#006C53',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#95F1D0',
+        'light-on-secondary-container': '#00382A',
+        'light-tertiary': '#795830',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#FFEEDF',
+        'light-on-tertiary-container': '#2B1700',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#93000A',
+        'light-background': '#F9F9FF',
+        'light-on-background': '#111C2D',
+        'light-surface': '#F9F9FF',
+        'light-surface-dim': '#CFDAF2',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F0F3FF',
+        'light-surface-container': '#E7EEFF',
+        'light-surface-container-high': '#DEE8FF',
+        'light-surface-container-highest': '#D8E3FB',
+        'light-on-surface': '#111C2D',
+        'light-surface-variant': '#E0E2EA',
+        'light-on-surface-variant': '#43474D',
+        'light-outline': '#74777E',
+        'light-outline-variant': '#C3C6CE',
+        'light-inverse-surface': '#263143',
+        'light-inverse-on-surface': '#ECF1FF',
+        'light-inverse-primary': '#B0C9E8',
+        'dark-primary': '#B0C9E8',
+        'dark-on-primary': '#19324B',
+        'dark-primary-container': '#0F2942',
+        'dark-on-primary-container': '#D1E4FF',
+        'dark-secondary': '#7CD8B8',
+        'dark-on-secondary': '#00382A',
+        'dark-secondary-container': '#00513E',
+        'dark-on-secondary-container': '#9AF6D5',
+        'dark-tertiary': '#EBBF8E',
+        'dark-on-tertiary': '#452B07',
+        'dark-tertiary-container': '#3B2201',
+        'dark-on-tertiary-container': '#FFDDB9',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#081425',
+        'dark-on-background': '#D8E3FB',
+        'dark-surface': '#081425',
+        'dark-surface-dim': '#040E1F',
+        'dark-surface-bright': '#2F3A4C',
+        'dark-surface-container-lowest': '#040E1F',
+        'dark-surface-container-low': '#111C2D',
+        'dark-surface-container': '#152031',
+        'dark-surface-container-high': '#1F2A3C',
+        'dark-surface-container-highest': '#2A3548',
+        'dark-on-surface': '#D8E3FB',
+        'dark-surface-variant': '#43474D',
+        'dark-on-surface-variant': '#C3C6CE',
+        'dark-outline': '#8D9198',
+        'dark-outline-variant': '#43474D',
+        'dark-inverse-surface': '#D8E3FB',
+        'dark-inverse-on-surface': '#263143',
+        'dark-inverse-primary': '#49607C',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Text"', 'sans-serif'],
+        'headline': ['"Red Hat Text"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Spline Sans Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '42px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '26px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.25px', fontWeight: '500' }],
+        'mono-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Red+Hat+Text:wght@500;600;700&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- Top POS Bar -->
+    <header class="sticky top-0 z-10 bg-light-primary text-light-on-primary px-gutter-lg py-gutter-sm flex flex-wrap items-center justify-between gap-gutter-md">
+      <div class="flex items-center gap-gutter-md">
+        <span class="font-headline text-title-lg text-light-on-primary">ServeFlow POS</span>
+        <span class="px-gutter-sm py-0.5 rounded bg-light-primary-container text-light-on-primary-container font-label text-label-sm">Tamarind &amp; Co. · Indiranagar</span>
+      </div>
+      <div class="flex items-center gap-gutter-md">
+        <span class="font-mono text-mono-md text-light-on-primary-container">Cashier: Neha R. · Register #01</span>
+        <button type="button" onclick="alert(&#39;Shift Closing Summary: ₹1,42,850 total collected.&#39;)" class="px-gutter-md py-1 rounded bg-light-primary-container text-light-on-primary font-label text-label-md cursor-pointer">Shift Close</button>
+      </div>
+    </header>
+
+    <!-- Split Pane POS Workspace -->
+    <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-0">
+      <!-- Left: Table Selection & Menu Grid (7 cols) -->
+      <section class="lg:col-span-7 p-gutter-lg flex flex-col gap-gutter-md border-b lg:border-b-0 lg:border-r border-light-outline-variant">
+        <div class="flex flex-wrap items-center justify-between gap-gutter-sm">
+          <div class="flex items-center gap-gutter-xs">
+            <button type="button" class="px-gutter-md py-gutter-xs rounded bg-light-primary text-light-on-primary font-label text-label-md cursor-pointer">Table T-04</button>
+            <button type="button" class="px-gutter-md py-gutter-xs rounded border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md cursor-pointer">Table T-09 (Bill Req)</button>
+            <button type="button" class="px-gutter-md py-gutter-xs rounded border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md cursor-pointer">+ Quick Takeaway</button>
+          </div>
+          <input type="search" placeholder="Search item or code..." class="rounded border border-light-outline-variant bg-light-surface-container-lowest px-gutter-md py-gutter-xs text-body-md w-56">
+        </div>
+
+        <h2 class="font-title text-title-md text-light-on-surface-variant">Quick Add Menu Items</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-gutter-sm">
+          <button type="button" onclick="addPosItem(&#39;Charred Paneer Tikka&#39;, 385)" data-component-id="card-interactive-2" data-component-type="card" data-component-variant="interactive" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Charred Paneer Tikka</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹385</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Veg</span>
+            </div>
+          </button>
+          <button type="button" onclick="addPosItem(&#39;Old Delhi Butter Chicken&#39;, 450)" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Old Delhi Butter Chicken</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹450</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-light-error-container text-light-on-error-container font-label text-label-sm">Non-Veg</span>
+            </div>
+          </button>
+          <button type="button" onclick="addPosItem(&#39;Garlic Butter Naan&#39;, 90)" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Garlic Butter Naan</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹90</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Veg</span>
+            </div>
+          </button>
+          <button type="button" onclick="addPosItem(&#39;Dal Makhani&#39;, 340)" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Dal Makhani</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹340</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Veg</span>
+            </div>
+          </button>
+          <button type="button" onclick="addPosItem(&#39;Masala Chaas&#39;, 110)" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Masala Chaas</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹110</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Veg</span>
+            </div>
+          </button>
+          <button type="button" onclick="addPosItem(&#39;Gulab Jamun (2 pcs)&#39;, 160)" class="text-left bg-light-surface-container-lowest border border-light-outline-variant hover:border-light-primary rounded-md p-gutter-md flex flex-col justify-between gap-gutter-sm cursor-pointer">
+            <span class="font-title text-title-md text-light-on-surface">Gulab Jamun (2 pcs)</span>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-mono-md text-light-primary tabular-nums">₹160</span>
+              <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Veg</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right: Active Bill, Configurable GST, Split & Payment (5 cols) -->
+      <section class="lg:col-span-5 bg-light-surface-container-lowest p-gutter-lg flex flex-col justify-between gap-gutter-md">
+        <div class="flex flex-col gap-gutter-md">
+          <header class="flex items-center justify-between border-b border-light-outline-variant pb-gutter-sm">
+            <div>
+              <h1 class="font-headline text-headline-md text-light-on-surface">Bill #INV-8842 · Table T-04</h1>
+              <p class="font-body text-body-sm text-light-on-surface-variant">4 Guests · Waiter: Priya</p>
+            </div>
+            <button type="button" onclick="alert(&#39;Split bill by 2 guests: ₹714 each.&#39;)" class="px-gutter-sm py-1 rounded border border-light-outline-variant font-label text-label-sm cursor-pointer">Split Bill</button>
+          </header>
+
+          <!-- Cart Items -->
+          <div id="posCart" class="divide-y divide-light-outline-variant">
+            <div class="py-gutter-sm flex items-center justify-between">
+              <div>
+                <p class="font-title text-title-md">Old Delhi Butter Chicken</p>
+                <p class="font-mono text-body-sm text-light-on-surface-variant">₹450 × 2</p>
+              </div>
+              <span class="font-mono text-mono-md tabular-nums">₹900</span>
+            </div>
+            <div class="py-gutter-sm flex items-center justify-between">
+              <div>
+                <p class="font-title text-title-md">Charred Paneer Tikka</p>
+                <p class="font-mono text-body-sm text-light-on-surface-variant">₹385 × 1</p>
+              </div>
+              <span class="font-mono text-mono-md tabular-nums">₹385</span>
+            </div>
+            <div class="py-gutter-sm flex items-center justify-between">
+              <div>
+                <p class="font-title text-title-md">Garlic Butter Naan</p>
+                <p class="font-mono text-body-sm text-light-on-surface-variant">₹90 × 4</p>
+              </div>
+              <span class="font-mono text-mono-md tabular-nums">₹360</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tax & Payment Settlement -->
+        <div class="border-t border-light-outline-variant pt-gutter-md flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <label for="gstRateSelect" class="font-label text-label-md text-light-on-surface-variant">Configured Tax</label>
+            <select id="gstRateSelect" onchange="recalcPos()" class="rounded border border-light-outline-variant px-gutter-sm py-1 font-label text-label-sm">
+              <option value="5">GST 5% (CGST 2.5% + SGST 2.5%)</option>
+              <option value="18">GST 18% (CGST 9% + SGST 9%)</option>
+              <option value="0">0% Tax Exempt</option>
+            </select>
+          </div>
+
+          <div class="bg-light-surface-container-low rounded p-gutter-md flex flex-col gap-1 font-mono text-mono-md">
+            <div class="flex justify-between"><span>Subtotal</span><span id="posSub" class="tabular-nums">₹1,645.00</span></div>
+            <div class="flex justify-between text-light-on-surface-variant"><span id="cgstLabel">CGST (2.5%)</span><span id="posCgst" class="tabular-nums">₹41.13</span></div>
+            <div class="flex justify-between text-light-on-surface-variant"><span id="sgstLabel">SGST (2.5%)</span><span id="posSgst" class="tabular-nums">₹41.13</span></div>
+            <div class="flex justify-between font-headline text-title-lg text-light-on-surface pt-gutter-xs border-t border-light-outline-variant">
+              <span>Payable Total</span>
+              <span id="posTotal" class="tabular-nums">₹1,727.25</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-gutter-xs">
+            <button type="button" onclick="selectPay(&#39;UPI QR&#39;)" id="payUpi" class="py-gutter-sm rounded border-2 border-light-secondary bg-light-secondary-container text-light-on-secondary-container font-label text-label-md cursor-pointer">UPI QR</button>
+            <button type="button" onclick="selectPay(&#39;Card&#39;)" id="payCard" class="py-gutter-sm rounded border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md cursor-pointer">Card</button>
+            <button type="button" onclick="selectPay(&#39;Cash&#39;)" id="payCash" class="py-gutter-sm rounded border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md cursor-pointer">Cash</button>
+          </div>
+
+          <button type="button" onclick="alert(&#39;Payment recorded via &#39; + activePayMethod + &#39;. Receipt printed!&#39;)" class="w-full py-gutter-md rounded bg-light-secondary text-light-on-secondary font-label text-label-lg cursor-pointer">
+            Settle Bill &amp; Print Receipt
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    let subtotal = 1645;
+    let activePayMethod = 'UPI QR';
+    function addPosItem(name, price) {
+      subtotal += price;
+      const row = document.createElement('div');
+      row.className = 'py-gutter-sm flex items-center justify-between';
+      row.innerHTML = '<div><p class="font-title text-title-md">' + name + '</p><p class="font-mono text-body-sm text-light-on-surface-variant">₹' + price + ' × 1</p></div><span class="font-mono text-mono-md tabular-nums">₹' + price + '</span>';
+      document.getElementById('posCart').appendChild(row);
+      recalcPos();
+    }
+    function recalcPos() {
+      const rate = parseFloat(document.getElementById('gstRateSelect').value);
+      const half = rate / 2;
+      const taxHalf = subtotal * (half / 100);
+      const total = subtotal + taxHalf * 2;
+      document.getElementById('cgstLabel').textContent = 'CGST (' + half + '%)';
+      document.getElementById('sgstLabel').textContent = 'SGST (' + half + '%)';
+      document.getElementById('posSub').textContent = '₹' + subtotal.toFixed(2);
+      document.getElementById('posCgst').textContent = '₹' + taxHalf.toFixed(2);
+      document.getElementById('posSgst').textContent = '₹' + taxHalf.toFixed(2);
+      document.getElementById('posTotal').textContent = '₹' + total.toFixed(2);
+    }
+    function selectPay(m) { activePayMethod = m; }
+  </script>
+
+
+</body></html>

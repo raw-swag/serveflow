@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waiter — Floor &amp; Table Ordering | ServeFlow</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'info': '#0369A1',
+        'on-info': '#FFFFFF',
+        'info-container': '#E0F2FE',
+        'on-info-container': '#0C4A6E',
+        'brand-tamarind': '#9A3412',
+        'on-brand-tamarind': '#FFFFFF',
+        'brand-tamarind-container': '#FFEDD5',
+        'on-brand-tamarind-container': '#7C2D12',
+        'brand-roast': '#3F6212',
+        'on-brand-roast': '#FFFFFF',
+        'brand-roast-container': '#ECFCCB',
+        'on-brand-roast-container': '#365314',
+        'light-primary': '#001428',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#0F2942',
+        'light-on-primary-container': '#D1E4FF',
+        'light-secondary': '#006C53',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#95F1D0',
+        'light-on-secondary-container': '#00382A',
+        'light-tertiary': '#795830',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#FFEEDF',
+        'light-on-tertiary-container': '#2B1700',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#93000A',
+        'light-background': '#F9F9FF',
+        'light-on-background': '#111C2D',
+        'light-surface': '#F9F9FF',
+        'light-surface-dim': '#CFDAF2',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F0F3FF',
+        'light-surface-container': '#E7EEFF',
+        'light-surface-container-high': '#DEE8FF',
+        'light-surface-container-highest': '#D8E3FB',
+        'light-on-surface': '#111C2D',
+        'light-surface-variant': '#E0E2EA',
+        'light-on-surface-variant': '#43474D',
+        'light-outline': '#74777E',
+        'light-outline-variant': '#C3C6CE',
+        'light-inverse-surface': '#263143',
+        'light-inverse-on-surface': '#ECF1FF',
+        'light-inverse-primary': '#B0C9E8',
+        'dark-primary': '#B0C9E8',
+        'dark-on-primary': '#19324B',
+        'dark-primary-container': '#0F2942',
+        'dark-on-primary-container': '#D1E4FF',
+        'dark-secondary': '#7CD8B8',
+        'dark-on-secondary': '#00382A',
+        'dark-secondary-container': '#00513E',
+        'dark-on-secondary-container': '#9AF6D5',
+        'dark-tertiary': '#EBBF8E',
+        'dark-on-tertiary': '#452B07',
+        'dark-tertiary-container': '#3B2201',
+        'dark-on-tertiary-container': '#FFDDB9',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#081425',
+        'dark-on-background': '#D8E3FB',
+        'dark-surface': '#081425',
+        'dark-surface-dim': '#040E1F',
+        'dark-surface-bright': '#2F3A4C',
+        'dark-surface-container-lowest': '#040E1F',
+        'dark-surface-container-low': '#111C2D',
+        'dark-surface-container': '#152031',
+        'dark-surface-container-high': '#1F2A3C',
+        'dark-surface-container-highest': '#2A3548',
+        'dark-on-surface': '#D8E3FB',
+        'dark-surface-variant': '#43474D',
+        'dark-on-surface-variant': '#C3C6CE',
+        'dark-outline': '#8D9198',
+        'dark-outline-variant': '#43474D',
+        'dark-inverse-surface': '#D8E3FB',
+        'dark-inverse-on-surface': '#263143',
+        'dark-inverse-primary': '#49607C',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Text"', 'sans-serif'],
+        'headline': ['"Red Hat Text"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Spline Sans Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '42px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '26px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.25px', fontWeight: '500' }],
+        'mono-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Red+Hat+Text:wght@500;600;700&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <div class="min-h-[884px] flex flex-col max-w-md mx-auto bg-light-surface border-x border-light-outline-variant" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Sticky Top Header -->
+    <header class="sticky top-0 z-10 bg-light-primary text-light-on-primary px-gutter-md py-gutter-md flex items-center justify-between">
+      <div>
+        <h1 class="font-headline text-title-lg text-light-on-primary">Waiter Floor · Arjun K.</h1>
+        <p class="font-body text-body-sm text-light-on-primary-container">Tamarind &amp; Co. · Indiranagar</p>
+      </div>
+      <span class="px-gutter-sm py-1 rounded bg-light-secondary text-light-on-secondary font-label text-label-sm">4 Assigned</span>
+    </header>
+
+    <!-- Main Floor Grid -->
+    <main class="flex-1 p-gutter-md flex flex-col gap-gutter-md">
+      <!-- Filter Chips -->
+      <div class="flex items-center gap-gutter-xs overflow-x-auto pb-1">
+        <button type="button" onclick="filterWaiterTables(&#39;all&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-light-primary text-light-on-primary font-label text-label-md shrink-0 cursor-pointer">My Tables (4)</button>
+        <button type="button" onclick="filterWaiterTables(&#39;ready&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant text-light-on-surface font-label text-label-md shrink-0 cursor-pointer">Food Ready (1)</button>
+        <button type="button" onclick="filterWaiterTables(&#39;free&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant text-light-on-surface font-label text-label-md shrink-0 cursor-pointer">Available (1)</button>
+      </div>
+
+      <!-- Large Touch-Target Table Cards -->
+      <section class="grid grid-cols-1 gap-gutter-md">
+        <article class="waiter-table bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-gutter-md flex flex-col gap-gutter-sm" data-state="ready">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-headline text-headline-md text-light-on-surface">Table T-01 · Main Hall</h2>
+              <p class="font-body text-body-sm text-light-on-surface-variant">4 Guests · KOT #1042</p>
+            </div>
+            <span class="px-gutter-sm py-1 rounded-sm bg-success-container text-on-success-container font-label text-label-sm">Ready to Serve</span>
+          </div>
+          <div class="flex items-center justify-between font-mono text-mono-md text-light-on-surface pt-1">
+            <span class="tabular-nums">₹1,620 (3 items)</span>
+            <span class="text-light-on-surface-variant">12m</span>
+          </div>
+          <div class="grid grid-cols-2 gap-gutter-sm pt-gutter-xs">
+            <button type="button" onclick="openQuickOrder(&#39;T-01&#39;)" class="py-gutter-sm rounded bg-light-primary text-light-on-primary font-label text-label-md cursor-pointer">+ Add Items</button>
+            <button type="button" onclick="alert(&#39;Bill requested for Table T-01 at Cashier POS.&#39;)" class="py-gutter-sm rounded border border-light-outline-variant bg-light-surface-container-low text-light-on-surface font-label text-label-md cursor-pointer">Request Bill</button>
+          </div>
+        </article>
+
+        <article class="waiter-table bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-gutter-md flex flex-col gap-gutter-sm" data-state="occupied">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-headline text-headline-md text-light-on-surface">Table T-04 · Window</h2>
+              <p class="font-body text-body-sm text-light-on-surface-variant">4 Guests · QR Self-Order Active</p>
+            </div>
+            <span class="px-gutter-sm py-1 rounded-sm bg-warning-container text-on-warning-container font-label text-label-sm">Preparing</span>
+          </div>
+          <div class="flex items-center justify-between font-mono text-mono-md text-light-on-surface pt-1">
+            <span class="tabular-nums">₹2,340 (5 items)</span>
+            <span class="text-light-on-surface-variant">14m</span>
+          </div>
+          <div class="grid grid-cols-2 gap-gutter-sm pt-gutter-xs">
+            <button type="button" onclick="openQuickOrder(&#39;T-04&#39;)" class="py-gutter-sm rounded bg-light-primary text-light-on-primary font-label text-label-md cursor-pointer">+ Add Items</button>
+            <button type="button" onclick="alert(&#39;Transfer / Split options opened for T-04.&#39;)" class="py-gutter-sm rounded border border-light-outline-variant bg-light-surface-container-low text-light-on-surface font-label text-label-md cursor-pointer">Transfer / Split</button>
+          </div>
+        </article>
+
+        <article class="waiter-table bg-light-surface-container-lowest border border-light-outline-variant rounded-md p-gutter-md flex flex-col gap-gutter-sm" data-state="free">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-headline text-headline-md text-light-on-surface">Table T-02 · Courtyard</h2>
+              <p class="font-body text-body-sm text-light-on-surface-variant">2 Seats · Clean &amp; Ready</p>
+            </div>
+            <span class="px-gutter-sm py-1 rounded-sm bg-info-container text-on-info-container font-label text-label-sm">Available</span>
+          </div>
+          <button type="button" onclick="openQuickOrder(&#39;T-02&#39;)" class="w-full py-gutter-sm rounded bg-light-secondary text-light-on-secondary font-label text-label-lg cursor-pointer">Seat Guests &amp; Create Order</button>
+        </article>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav aria-label="Waiter Mobile Nav" class="sticky bottom-0 z-10 bg-light-surface-container-lowest border-t border-light-outline-variant grid grid-cols-3 py-gutter-xs">
+      <a href="#" class="flex flex-col items-center py-1 text-light-primary">
+        <span class="material-symbols-outlined text-title-lg" aria-hidden="true">table_restaurant</span>
+        <span class="font-label text-label-sm">Tables</span>
+      </a>
+      <a href="#" onclick="openQuickOrder(&#39;T-01&#39;)" class="flex flex-col items-center py-1 text-light-on-surface-variant">
+        <span class="material-symbols-outlined text-title-lg" aria-hidden="true">add_shopping_cart</span>
+        <span class="font-label text-label-sm">New Order</span>
+      </a>
+      <a href="#" class="flex flex-col items-center py-1 text-light-on-surface-variant">
+        <span class="material-symbols-outlined text-title-lg" aria-hidden="true">notifications_active</span>
+        <span class="font-label text-label-sm">KOT Alerts</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Quick Order Drawer -->
+  <div id="quickOrderSheet" class="hidden fixed inset-0 z-50 bg-light-on-surface/50 flex items-end justify-center">
+    <div class="bg-light-surface-container-lowest rounded-t-xl max-w-md w-full p-gutter-lg flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between">
+        <h3 id="sheetTitle" class="font-headline text-headline-md text-light-on-surface">Add Items to Table</h3>
+        <button type="button" onclick="closeQuickOrder()" class="p-1 cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="flex flex-col gap-gutter-sm">
+        <div class="flex items-center justify-between p-gutter-sm rounded border border-light-outline-variant">
+          <div>
+            <p class="font-title text-title-md">Charred Paneer Tikka</p>
+            <p class="font-mono text-body-sm text-light-on-surface-variant">₹385 · Medium Spice</p>
+          </div>
+          <button type="button" class="px-gutter-md py-1 rounded bg-light-primary text-light-on-primary font-label text-label-md cursor-pointer">+1</button>
+        </div>
+        <div class="flex items-center justify-between p-gutter-sm rounded border border-light-outline-variant">
+          <div>
+            <p class="font-title text-title-md">Garlic Butter Naan</p>
+            <p class="font-mono text-body-sm text-light-on-surface-variant">₹90</p>
+          </div>
+          <button type="button" class="px-gutter-md py-1 rounded bg-light-primary text-light-on-primary font-label text-label-md cursor-pointer">+2</button>
+        </div>
+      </div>
+      <button type="button" onclick="closeQuickOrder(); alert(&#39;KOT sent to Kitchen Display!&#39;);" class="w-full py-gutter-md rounded bg-light-secondary text-light-on-secondary font-label text-label-lg cursor-pointer">Send Order to Kitchen (₹565)</button>
+    </div>
+  </div>
+
+  <script>
+    function filterWaiterTables(state) {
+      document.querySelectorAll('.waiter-table').forEach(el => {
+        el.style.display = (state === 'all' || el.dataset.state === state) ? '' : 'none';
+      });
+    }
+    function openQuickOrder(table) {
+      document.getElementById('sheetTitle').textContent = 'Add Items · Table ' + table;
+      document.getElementById('quickOrderSheet').classList.remove('hidden');
+    }
+    function closeQuickOrder() { document.getElementById('quickOrderSheet').classList.add('hidden'); }
+  </script>
+
+
+</body></html>

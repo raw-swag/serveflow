@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer — QR Ordering Experience | ServeFlow</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'info': '#0369A1',
+        'on-info': '#FFFFFF',
+        'info-container': '#E0F2FE',
+        'on-info-container': '#0C4A6E',
+        'brand-tamarind': '#9A3412',
+        'on-brand-tamarind': '#FFFFFF',
+        'brand-tamarind-container': '#FFEDD5',
+        'on-brand-tamarind-container': '#7C2D12',
+        'brand-roast': '#3F6212',
+        'on-brand-roast': '#FFFFFF',
+        'brand-roast-container': '#ECFCCB',
+        'on-brand-roast-container': '#365314',
+        'light-primary': '#001428',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#0F2942',
+        'light-on-primary-container': '#D1E4FF',
+        'light-secondary': '#006C53',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#95F1D0',
+        'light-on-secondary-container': '#00382A',
+        'light-tertiary': '#795830',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#FFEEDF',
+        'light-on-tertiary-container': '#2B1700',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#93000A',
+        'light-background': '#F9F9FF',
+        'light-on-background': '#111C2D',
+        'light-surface': '#F9F9FF',
+        'light-surface-dim': '#CFDAF2',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F0F3FF',
+        'light-surface-container': '#E7EEFF',
+        'light-surface-container-high': '#DEE8FF',
+        'light-surface-container-highest': '#D8E3FB',
+        'light-on-surface': '#111C2D',
+        'light-surface-variant': '#E0E2EA',
+        'light-on-surface-variant': '#43474D',
+        'light-outline': '#74777E',
+        'light-outline-variant': '#C3C6CE',
+        'light-inverse-surface': '#263143',
+        'light-inverse-on-surface': '#ECF1FF',
+        'light-inverse-primary': '#B0C9E8',
+        'dark-primary': '#B0C9E8',
+        'dark-on-primary': '#19324B',
+        'dark-primary-container': '#0F2942',
+        'dark-on-primary-container': '#D1E4FF',
+        'dark-secondary': '#7CD8B8',
+        'dark-on-secondary': '#00382A',
+        'dark-secondary-container': '#00513E',
+        'dark-on-secondary-container': '#9AF6D5',
+        'dark-tertiary': '#EBBF8E',
+        'dark-on-tertiary': '#452B07',
+        'dark-tertiary-container': '#3B2201',
+        'dark-on-tertiary-container': '#FFDDB9',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#081425',
+        'dark-on-background': '#D8E3FB',
+        'dark-surface': '#081425',
+        'dark-surface-dim': '#040E1F',
+        'dark-surface-bright': '#2F3A4C',
+        'dark-surface-container-lowest': '#040E1F',
+        'dark-surface-container-low': '#111C2D',
+        'dark-surface-container': '#152031',
+        'dark-surface-container-high': '#1F2A3C',
+        'dark-surface-container-highest': '#2A3548',
+        'dark-on-surface': '#D8E3FB',
+        'dark-surface-variant': '#43474D',
+        'dark-on-surface-variant': '#C3C6CE',
+        'dark-outline': '#8D9198',
+        'dark-outline-variant': '#43474D',
+        'dark-inverse-surface': '#D8E3FB',
+        'dark-inverse-on-surface': '#263143',
+        'dark-inverse-primary': '#49607C',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Text"', 'sans-serif'],
+        'headline': ['"Red Hat Text"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Spline Sans Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '42px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '26px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.25px', fontWeight: '500' }],
+        'mono-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Red+Hat+Text:wght@500;600;700&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <div class="min-h-[884px] flex flex-col max-w-md mx-auto bg-light-surface-container-lowest border-x border-light-outline-variant" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Restaurant Branded Hero -->
+    <div class="relative">
+      <img src="https://lh3.googleusercontent.com/aida/ALJJyrARTUps4PkHJjmqGwqqI0JDGMlos98y9I_LWB0tYbLmeV2D3dmWeL3dZtCXk-EtTfE0XputYTmsstu77DtZ5_rdBsdKCFNxig2f37OH1X3w2Ili61-lJGmWLt7LGXUx9pdjT26xZmvWdwbQIR4KHf-3aIcSdQctLGH8KL2ZbM4na5-RjKVb1xgQZWGzd_E_uRnGC9pze3dqt2cac9qS2buttsopKaOwUSMAB2B3kF3NpRkUiJ1mE1jC" alt="Tamarind &amp; Co. dining table" class="w-full h-44 object-cover">
+      <div class="p-gutter-md bg-brand-tamarind text-on-brand-tamarind flex items-center justify-between">
+        <div>
+          <h1 class="font-headline text-headline-md text-on-brand-tamarind">Tamarind &amp; Co.</h1>
+          <p class="font-body text-body-sm opacity-90">Indiranagar · Table T-04 · Dine-In QR</p>
+        </div>
+        <span class="px-gutter-sm py-0.5 rounded bg-light-surface-container-lowest text-light-on-surface font-label text-label-sm">★ 4.8</span>
+      </div>
+    </div>
+
+    <!-- Live Order Tracking Banner -->
+    <div class="mx-gutter-md mt-gutter-md p-gutter-sm rounded bg-warning-container text-on-warning-container flex items-center justify-between">
+      <div class="flex items-center gap-gutter-sm">
+        <span class="material-symbols-outlined text-title-lg" aria-hidden="true">skillet</span>
+        <div>
+          <p class="font-label text-label-md">Order #KOT-1046 is Preparing</p>
+          <p class="font-body text-body-sm">Estimated 8 mins to Table T-04</p>
+        </div>
+      </div>
+      <span class="font-mono text-label-sm font-semibold">LIVE</span>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="px-gutter-md py-gutter-md flex items-center gap-gutter-xs overflow-x-auto">
+      <button type="button" class="px-gutter-md py-gutter-xs rounded-full bg-brand-tamarind text-on-brand-tamarind font-label text-label-md shrink-0 cursor-pointer">Chef&#39;s Specials</button>
+      <button type="button" class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-low text-light-on-surface font-label text-label-md shrink-0 cursor-pointer">Tandoor</button>
+      <button type="button" class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-low text-light-on-surface font-label text-label-md shrink-0 cursor-pointer">Curries &amp; Breads</button>
+      <button type="button" class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-low text-light-on-surface font-label text-label-md shrink-0 cursor-pointer">Drinks</button>
+    </div>
+
+    <!-- Menu Items -->
+    <main class="flex-1 px-gutter-md pb-gutter-xl flex flex-col gap-gutter-md">
+      <article class="border border-light-outline-variant rounded-md p-gutter-md flex gap-gutter-md items-start">
+        <div class="flex-1 flex flex-col gap-1">
+          <span class="px-1.5 py-0.5 rounded-sm bg-success-container text-on-success-container font-label text-label-sm w-fit">Veg · Bestseller</span>
+          <h2 class="font-title text-title-md text-light-on-surface">Charred Paneer Tikka</h2>
+          <p class="font-body text-body-sm text-light-on-surface-variant">Cottage cheese marinated in hung curd, Kashmiri chilli, and tandoor-roasted peppers.</p>
+          <div class="flex items-center justify-between pt-gutter-xs">
+            <span class="font-mono text-mono-md text-light-on-surface font-semibold tabular-nums">₹385</span>
+            <button type="button" onclick="openCustomSheet(&#39;Charred Paneer Tikka&#39;, 385)" class="px-gutter-md py-1 rounded border border-brand-tamarind text-brand-tamarind font-label text-label-md cursor-pointer">+ Customize</button>
+          </div>
+        </div>
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrBzV7EdqeVKKXs2SG6EcZlTiYSjFpNmHVrqyavvFD6ZlHnP4eeCFeCRxt-IP_ZrTeeCwgP8Tf2AVLli1phjFZxNQOLc7vjH6-4KI4E2XhbQjNFYKEH7L2lrfZBAjssyE_zYrnWGjTLnz74lr2oAWqb5oC1zRPorioO_BgqIx2KEgDd-71HEDk7vZDpTCmxn17pRtVNBPdoxmnz6yeUQIfOLt81bRUkmIUHasLFkazMrN0LeFF7uew" alt="Charred Paneer Tikka" class="w-24 h-24 rounded object-cover shrink-0">
+      </article>
+
+      <article class="border border-light-outline-variant rounded-md p-gutter-md flex gap-gutter-md items-start">
+        <div class="flex-1 flex flex-col gap-1">
+          <span class="px-1.5 py-0.5 rounded-sm bg-light-error-container text-light-on-error-container font-label text-label-sm w-fit">Non-Veg</span>
+          <h2 class="font-title text-title-md text-light-on-surface">Old Delhi Butter Chicken</h2>
+          <p class="font-body text-body-sm text-light-on-surface-variant">Tandoor-grilled chicken simmered in velvety tomato makhani gravy with fenugreek.</p>
+          <div class="flex items-center justify-between pt-gutter-xs">
+            <span class="font-mono text-mono-md text-light-on-surface font-semibold tabular-nums">₹450</span>
+            <button type="button" onclick="openCustomSheet(&#39;Old Delhi Butter Chicken&#39;, 450)" class="px-gutter-md py-1 rounded border border-brand-tamarind text-brand-tamarind font-label text-label-md cursor-pointer">+ Customize</button>
+          </div>
+        </div>
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrDrZqFhbkHZiM_tnEav8bPwcungwSH33L8ptSvNOW-LwYXBFWC8z3wEWdMU-Ld_w8-bA0ZsapmKShDlpmvgK1aghKHXZkmstK4WOKqZKave_7yGvHod7cLkX-gsrxV3hnMpr3_qXrU_0QSmocP19Ni5g4xMBVV4mDyhbiZJ42Ao7b42WUMFyhCj8aTYGWERBe0TzfdRCtpl3QwLwPMYJBvjNAanA9ijjHFJmrnq107wxfJd1tSqEVMQTw" alt="Old Delhi Butter Chicken" class="w-24 h-24 rounded object-cover shrink-0">
+      </article>
+    </main>
+
+    <!-- Sticky Bottom Cart Bar -->
+    <footer class="sticky bottom-0 z-10 p-gutter-md bg-light-surface-container-lowest border-t border-light-outline-variant">
+      <button type="button" onclick="alert(&#39;Order submitted to Tamarind &amp; Co. Kitchen!&#39;)" class="w-full py-gutter-md px-gutter-md rounded-md bg-brand-tamarind text-on-brand-tamarind flex items-center justify-between font-label text-label-lg cursor-pointer">
+        <span id="cartCountLabel">2 Items · ₹835 + GST</span>
+        <span class="flex items-center gap-1">View Cart &amp; Order <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_forward</span></span>
+      </button>
+    </footer>
+  </div>
+
+  <!-- Customization Bottom Sheet -->
+  <div id="customSheet" class="hidden fixed inset-0 z-50 bg-light-on-surface/50 flex items-end justify-center">
+    <div class="bg-light-surface-container-lowest rounded-t-xl max-w-md w-full p-gutter-lg flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between">
+        <h3 id="customTitle" class="font-headline text-headline-md text-light-on-surface">Customize Item</h3>
+        <button type="button" onclick="closeCustomSheet()" class="p-1 cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="flex flex-col gap-gutter-sm">
+        <p class="font-label text-label-md text-light-on-surface-variant">Spice Preference</p>
+        <label class="flex items-center justify-between p-gutter-sm rounded border border-light-outline-variant cursor-pointer">
+          <span class="font-body text-body-md">Mild / Family Style</span>
+          <input type="radio" name="spice" checked class="text-brand-tamarind">
+        </label>
+        <label class="flex items-center justify-between p-gutter-sm rounded border border-light-outline-variant cursor-pointer">
+          <span class="font-body text-body-md">Medium Tandoor Spice</span>
+          <input type="radio" name="spice" class="text-brand-tamarind">
+        </label>
+        <p class="font-label text-label-md text-light-on-surface-variant pt-gutter-xs">Add-ons</p>
+        <label class="flex items-center justify-between p-gutter-sm rounded border border-light-outline-variant cursor-pointer">
+          <span class="font-body text-body-md">Extra Mint &amp; Tamarind Chutney</span>
+          <span class="font-mono text-mono-md">+₹30</span>
+        </label>
+      </div>
+      <button type="button" onclick="addCustomToCart()" class="w-full py-gutter-md rounded bg-brand-tamarind text-on-brand-tamarind font-label text-label-lg cursor-pointer">Add to Order</button>
+    </div>
+  </div>
+
+  <script>
+    let cartTotal = 835;
+    let cartCount = 2;
+    let pendingPrice = 0;
+    function openCustomSheet(title, price) {
+      pendingPrice = price;
+      document.getElementById('customTitle').textContent = title;
+      document.getElementById('customSheet').classList.remove('hidden');
+    }
+    function closeCustomSheet() { document.getElementById('customSheet').classList.add('hidden'); }
+    function addCustomToCart() {
+      cartTotal += pendingPrice;
+      cartCount += 1;
+      document.getElementById('cartCountLabel').textContent = cartCount + ' Items · ₹' + cartTotal + ' + GST';
+      closeCustomSheet();
+    }
+  </script>
+
+
+</body></html>
