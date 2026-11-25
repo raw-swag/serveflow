@@ -1,0 +1,27 @@
+{
+  "name": "serveflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ServeFlow — India-First Multi-Tenant Restaurant Operations SaaS Platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.0.0 <=22.12.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --if-present --workspaces",
+    "typecheck": "npm run typecheck --if-present --workspaces",
+    "lint": "npm run lint --if-present --workspaces",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
+  },
+  "devDependencies": {
+    "@types/node": "20.14.9",
+    "prettier": "3.3.2",
+    "typescript": "5.4.5"
+  }
+}

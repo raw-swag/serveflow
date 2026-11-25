@@ -1,28 +1,36 @@
 # ServeFlow — Architecture Decision Log (ADR)
 
-## ADR-001: Monorepo Strategy with Turborepo
-- **Status**: Accepted
-- **Context**: We need to share types, validation schemas, and database definitions between the Next.js frontend and NestJS backend.
-- **Decision**: Use Turborepo with pnpm/npm workspaces.
-- **Consequence**: Unified build orchestration, blazing fast caching, and zero type drift between client and server.
+## ADR-001: Monorepo Strategy with npm Workspaces
+- **Status**: Accepted (Implemented in Phase 01)
+- **Context**: Need a unified, reproducible monorepo structure sharing types, validation schemas, and UI design components between the Next.js frontend and NestJS backend.
+- **Decision**: Use npm workspaces (Node.js v22.12.0 LTS, npm 10.9.0) with clean package exports and tsconfig project references.
+- **Consequence**: Single consistent root `package-lock.json`, zero external workspace manager drift, and lightning-fast local compilation.
 
-## ADR-002: Frontend Architecture — Single Next.js Application vs Multiple Apps
-- **Status**: Accepted
-- **Context**: Need to support 7 distinct interfaces (Super Admin, Owner, Manager, POS, KDS, Waiter, Customer QR).
-- **Decision**: Implement a single Next.js App Router application leveraging route groups (`(auth)`, `(dashboard)`, `(kds)`, `(pos)`, `(customer)`).
-- **Consequence**: Greatly simplifies hosting, deployment pipelines, and shared component reuse while maintaining clean route-level code splitting and distinct layouts.
+## ADR-002: Frontend Architecture — Single Next.js Application with Route Groups
+- **Status**: Accepted (Implemented in Phase 01)
+- **Context**: Need to support 8 distinct interfaces (Super Admin, Owner Dashboard, Owner Menu, Manager Operations, Waiter Floor, Cashier POS, KDS Pass, and Customer QR Ordering).
+- **Decision**: Implement a single Next.js 14+ App Router application (`apps/web`) leveraging segregated route groups:
+  - `(super-admin)/admin/overview`
+  - `(dashboard)/owner/dashboard`
+  - `(dashboard)/owner/menu`
+  - `(dashboard)/manager/operations`
+  - `(waiter)/waiter/floor`
+  - `(pos)/pos/register`
+  - `(kds)/kds/pass`
+  - `(customer)/menu/[tenantSlug]/[tableId]`
+- **Consequence**: Shared layouts, unified `@next/font/google` asset optimization, and clean URL routing without deploying 8 separate applications.
 
-## ADR-003: Multi-Tenancy — Shared Database with Row-Level Security (RLS)
+## ADR-003: UI Design System & Component Library (`@serveflow/ui-kit`)
+- **Status**: Accepted (Implemented in Phase 01)
+- **Context**: Translate official Google Stitch UI/UX design references into production-grade React components.
+- **Decision**: Author `@serveflow/ui-kit` with typed design tokens (`colors.light`, `colors.dark`, typography, spacing, radii) and Lucide React icons instead of Material Symbols CDN fonts.
+- **Consequence**: Zero layout shifts, no external runtime web font delays, and consistent styling across all portals.
+
+## ADR-004: Multi-Tenancy — Shared Database with Row-Level Security (RLS)
 - **Status**: Accepted
 - **Context**: Need cost-effective scalability for thousands of restaurants while preventing any possibility of cross-tenant data leaks.
-- **Decision**: Shared PostgreSQL database with explicit `tenant_id` foreign keys enforced by both Prisma middleware and PostgreSQL Row-Level Security (RLS).
-- **Consequence**: Highly cost-effective; requires diligent adherence to context injection in all database transactions.
-
-## ADR-004: Real-Time Event Communication — Socket.IO with Redis Adapter
-- **Status**: Accepted
-- **Context**: Instant order synchronization to KDS, live table status to POS, and waiter alerts require low-latency pub/sub.
-- **Decision**: Socket.IO integrated with NestJS WebSockets, backed by Redis Streams/Pub-Sub.
-- **Consequence**: Enables multi-instance horizontal scaling with room-level routing.
+- **Decision**: Shared PostgreSQL database with explicit `tenant_id` foreign keys enforced by both Prisma middleware and PostgreSQL Row-Level Security (RLS) using transaction-local `SET LOCAL app.current_tenant_id`.
+- **Consequence**: Highly cost-effective; requires diligent adherence to context injection in all database transactions (Phase 02).
 
 ## ADR-005: Cryptographic Dynamic QR Codes
 - **Status**: Accepted
