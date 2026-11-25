@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Plus, Filter, AlertTriangle } from 'lucide-react';
-import { DietaryBadge, CurrencyDisplay, Badge, Button } from '@serveflow/ui-kit';
+import { Search, Plus } from 'lucide-react';
+import { DietaryBadge, CurrencyDisplay, Button } from '@serveflow/ui-kit';
 
 export default function OwnerMenuPage() {
   const [activeBrand, setActiveBrand] = useState<'tamarind' | 'roast'>('tamarind');

@@ -6,7 +6,7 @@ import React from 'react';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'destructive' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -87,7 +87,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
 // ==========================================
 export interface BadgeProps {
   variant?: 'success' | 'warning' | 'error' | 'info' | 'neutral';
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -143,7 +143,7 @@ export const StatusIndicator: React.FC<StatusIndicatorProps> = ({
 // 3. Card & MetricCard
 // ==========================================
 export interface CardProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   onClick?: () => void;
 }
@@ -313,7 +313,7 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {

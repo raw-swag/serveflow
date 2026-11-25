@@ -1,0 +1,44 @@
+name: ServeFlow CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 26.13.1 (Active LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26.13.1'
+          cache: 'npm'
+
+      - name: Install Monorepo Dependencies
+        run: npm ci
+
+      - name: Run TypeScript Static Type Checking
+        run: npm run typecheck
+
+      - name: Run ESLint Quality Gates
+        run: npm run lint
+
+      - name: Run Backend & Shared Package Unit Tests
+        run: npm run test
+
+      - name: Build All Monorepo Workspaces
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: apps/web
+
+      - name: Execute Playwright Browser Route Smoke Tests
+        run: npx playwright test
+        working-directory: apps/web

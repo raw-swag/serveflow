@@ -5,8 +5,11 @@ export const envSchema = z.object({
   PORT: z
     .string()
     .default('4000')
+    .refine((val) => /^\d+$/.test(val), {
+      message: 'PORT must be a positive integer without letters, symbols, or decimals',
+    })
     .transform((val) => parseInt(val, 10))
-    .refine((port) => !isNaN(port) && port > 0 && port < 65536, {
+    .refine((port) => port >= 1 && port <= 65535, {
       message: 'PORT must be a valid port number between 1 and 65535',
     }),
   CORS_ORIGINS: z
@@ -18,9 +21,28 @@ export const envSchema = z.object({
         .map((origin) => origin.trim())
         .filter((origin) => origin.length > 0)
     )
-    .refine((origins) => origins.length > 0, {
-      message: 'CORS_ORIGINS must contain at least one valid origin',
-    }),
+    .refine(
+      (origins) => {
+        if (origins.length === 0) return false;
+        // Strictly validate each origin as a valid http/https origin without path, query, or credentials
+        for (const origin of origins) {
+          if (origin === '*') return false; // Strictly disallow wildcard in CORS_ORIGINS
+          try {
+            const parsed = new URL(origin);
+            if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return false;
+            if (parsed.pathname !== '' && parsed.pathname !== '/') return false;
+            if (parsed.search || parsed.hash || parsed.username || parsed.password) return false;
+          } catch {
+            return false;
+          }
+        }
+        return true;
+      },
+      {
+        message:
+          'CORS_ORIGINS must be a comma-separated list of valid HTTP/HTTPS origins without paths, query parameters, wildcards (*), or credentials',
+      }
+    ),
   API_PREFIX: z.string().default('/api/v1'),
   APP_NAME: z.string().default('ServeFlow API'),
 });

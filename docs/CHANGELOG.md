@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.2] - 2026-11-25
+
+### Verified - Phase 01.2: Final Runtime Alignment, Real UI Tests, Security Review & CI Verification
+- **Node.js 26.13.1 Active LTS Runtime Alignment**:
+  - Selected and installed official Node.js `26.13.1` (Active LTS) with npm `11.20.0`.
+  - Updated root engine specification to `>=20.9.0` and aligned all workspace `@types/node` definitions to `22.13.14`.
+  - Cleared all extraneous dependencies and validated clean lockfile with `npm ls`.
+- **Real End-to-End Route Smoke Tests with Playwright**:
+  - Implemented `@playwright/test` suite `apps/web/e2e/routes.smoke.spec.ts` testing all 8 primary application route skeletons.
+  - Configured `apps/web/playwright.config.ts` targeting Microsoft Edge/Chromium with webServer automation (`npm run start` on port 3000).
+  - All 8 routes verified with 200 HTTP response codes and key DOM element assertions.
+- **Server-Side HTML Rendering Verification for UI Kit**:
+  - Created real React server markup rendering test suite `packages/ui-kit/src/components/index.test.tsx` using `react-dom/server` `renderToStaticMarkup`.
+  - Verified all 14 components: `Button`, `IconButton`, `Badge`, `StatusIndicator`, `Card`, `MetricCard`, `Input`, `SearchInput`, `Tabs`, `Modal`, `DataTable`, `CurrencyDisplay`, `DietaryBadge`, and `TicketTimer`.
+- **Strict API Environment Validation & Exception Sanitization**:
+  - Hardened `apps/api/src/common/env.validation.ts` with strict regex validation for integer `PORT` (1-65535) and URL parsing for `CORS_ORIGINS` (rejecting wildcards `*`, paths, credentials).
+  - Enhanced `AllExceptionsFilter` in `apps/api/src/common/all-exceptions.filter.ts` with cryptographic `randomUUID()`, validated incoming `X-Request-Id` reflection, and redaction of sensitive credentials.
+- **Continuous Integration Pipeline**:
+  - Added `.github/workflows/ci.yml` matrix workflow executing dependency checks, typechecks, linter, unit tests, Next.js build, and Playwright tests under Node.js `26.13.1`.
+
+---
+
 ## [0.2.1] - 2026-11-25
 
 ### Fixed - Phase 01.1: Foundation Stabilization, Security Corrections & Quality Gate Remediation

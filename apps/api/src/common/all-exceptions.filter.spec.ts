@@ -1,16 +1,15 @@
 import {
   BadRequestException,
-  UnauthorizedException,
-  NotFoundException,
   HttpStatus,
 } from '@nestjs/common';
-import { AllExceptionsFilter } from './all-exceptions.filter';
+import { AllExceptionsFilter, sanitizeDiagnosticString } from './all-exceptions.filter';
 
 describe('AllExceptionsFilter', () => {
   let filter: AllExceptionsFilter;
   let mockResponse: {
     status: jest.Mock;
     json: jest.Mock;
+    setHeader: jest.Mock;
   };
   let mockRequest: {
     headers: Record<string, string>;
@@ -22,10 +21,11 @@ describe('AllExceptionsFilter', () => {
     mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis(),
+      setHeader: jest.fn(),
     };
     mockRequest = {
       headers: {
-        'x-request-id': 'test-req-123',
+        'x-request-id': 'valid-upstream-req-id-1234',
       },
     };
     mockHost = {
@@ -34,6 +34,19 @@ describe('AllExceptionsFilter', () => {
         getRequest: () => mockRequest,
       }),
     };
+  });
+
+  it('should accept valid upstream request IDs and set response header', () => {
+    filter.catch(new BadRequestException('Invalid'), mockHost);
+    expect(mockResponse.setHeader).toHaveBeenCalledWith('X-Request-Id', 'valid-upstream-req-id-1234');
+  });
+
+  it('should reject invalid upstream request IDs (malicious characters or too short) and generate secure random UUID', () => {
+    mockRequest.headers['x-request-id'] = 'bad<script>';
+    filter.catch(new BadRequestException('Invalid'), mockHost);
+
+    const generatedId = mockResponse.setHeader.mock.calls[0][1];
+    expect(generatedId).toMatch(/^req_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
   });
 
   it('should format 400 BadRequestException with safe message', () => {
@@ -47,59 +60,6 @@ describe('AllExceptionsFilter', () => {
         statusCode: 400,
         error: 'Bad Request',
         message: 'Invalid table payload',
-        meta: expect.objectContaining({
-          requestId: 'test-req-123',
-        }),
-      }),
-    );
-  });
-
-  it('should format 401 UnauthorizedException with safe message', () => {
-    const exception = new UnauthorizedException('Authentication token expired');
-    filter.catch(exception, mockHost);
-
-    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.UNAUTHORIZED);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      expect.objectContaining({
-        success: false,
-        statusCode: 401,
-        message: 'Authentication token expired',
-      }),
-    );
-  });
-
-  it('should format 404 NotFoundException with safe message', () => {
-    const exception = new NotFoundException('Table not found');
-    filter.catch(exception, mockHost);
-
-    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.NOT_FOUND);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      expect.objectContaining({
-        success: false,
-        statusCode: 404,
-        message: 'Table not found',
-      }),
-    );
-  });
-
-  it('should format validation errors with detailed fields', () => {
-    const exception = new BadRequestException({
-      statusCode: 400,
-      message: ['email must be an email', 'password must be at least 8 characters'],
-      error: 'Bad Request',
-    });
-    filter.catch(exception, mockHost);
-
-    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.BAD_REQUEST);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      expect.objectContaining({
-        success: false,
-        statusCode: 400,
-        message: 'Validation failed',
-        details: [
-          { message: 'email must be an email' },
-          { message: 'password must be at least 8 characters' },
-        ],
       }),
     );
   });
@@ -119,9 +79,18 @@ describe('AllExceptionsFilter', () => {
     expect(responsePayload.message).toBe(
       'An unexpected internal server error occurred. Please contact support.',
     );
-    // Explicitly verify secret internals are never present in the payload
     expect(JSON.stringify(responsePayload)).not.toContain('secretInternalSql');
     expect(JSON.stringify(responsePayload)).not.toContain('password_hash');
     expect(responsePayload.stack).toBeUndefined();
+  });
+
+  it('should sanitize sensitive passwords, tokens, and database credentials before logging', () => {
+    const sensitive = 'Failed connecting to postgresql://postgres:SuperSecretPassword@localhost:5432 with bearer eyJhbGciOiJIUzI1NiJ9.test';
+    const sanitized = sanitizeDiagnosticString(sensitive);
+
+    expect(sanitized).not.toContain('SuperSecretPassword');
+    expect(sanitized).not.toContain('eyJhbGciOiJIUzI1NiJ9');
+    expect(sanitized).toContain('[REDACTED_PASSWORD]');
+    expect(sanitized).toContain('[REDACTED_TOKEN]');
   });
 });

@@ -1,9 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Users, Clock, AlertCircle, Utensils, CheckCircle } from 'lucide-react';
-import { Badge, Button } from '@serveflow/ui-kit';
-
 export default function ManagerOperationsPage() {
   const [selectedArea, setSelectedArea] = useState('ALL');
 
@@ -33,7 +30,9 @@ export default function ManagerOperationsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="success">Floor Active: 6 / 8 Tables</Badge>
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-label bg-[#DCFCE7] text-[#14532D] border border-[#BBF7D0]">
+            Floor Active: 6 / 8 Tables
+          </span>
         </div>
       </header>
 
@@ -64,19 +63,19 @@ export default function ManagerOperationsPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="font-mono font-bold text-base text-light-primary">{t.id}</span>
-                <Badge
-                  variant={
+                <span
+                  className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-label border ${
                     t.status === 'VACANT'
-                      ? 'success'
+                      ? 'bg-[#DCFCE7] text-[#14532D] border-[#BBF7D0]'
                       : t.status === 'READY_TO_SERVE'
-                      ? 'info'
+                      ? 'bg-[#E0F2FE] text-[#0C4A6E] border-[#BAE6FD]'
                       : t.status === 'BILL_REQUESTED'
-                      ? 'error'
-                      : 'warning'
-                  }
+                      ? 'bg-[#FFDAD6] text-[#93000A] border-[#FFCDD2]'
+                      : 'bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]'
+                  }`}
                 >
                   {t.status.replace(/_/g, ' ')}
-                </Badge>
+                </span>
               </div>
               <p className="text-xs text-gray-500">{t.area} · Max {t.capacity} Guests</p>
             </div>

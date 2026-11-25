@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import * as crypto from 'crypto';
 
 export interface ApiErrorResponse {
   success: false;
@@ -16,8 +17,18 @@ export interface ApiErrorResponse {
   details?: Array<{ field?: string; message: string }>;
   meta: {
     timestamp: string;
-    requestId?: string;
+    requestId: string;
   };
+}
+
+const REQUEST_ID_REGEX = /^[a-zA-Z0-9_-]{8,64}$/;
+
+export function sanitizeDiagnosticString(input: string): string {
+  // Redact authorization tokens, bearer headers, passwords, secrets, connection strings
+  return input
+    .replace(/(bearer\s+)[a-zA-Z0-9_.-]+/gi, '$1[REDACTED_TOKEN]')
+    .replace(/(password|secret|token|apikey|authorization)(["']?\s*[:=]\s*["']?)[^"',\s}]+/gi, '$1$2[REDACTED]')
+    .replace(/(postgres(ql)?:\/\/[^:]+:)[^@]+(@)/gi, '$1[REDACTED_PASSWORD]$3');
 }
 
 @Catch()
@@ -29,9 +40,18 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const requestId =
-      (request.headers['x-request-id'] as string) ||
-      `req_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    // Safely generate or validate correlation Request ID
+    const incomingHeader = request.headers['x-request-id'];
+    let requestId: string;
+
+    if (typeof incomingHeader === 'string' && REQUEST_ID_REGEX.test(incomingHeader)) {
+      requestId = incomingHeader;
+    } else {
+      requestId = `req_${crypto.randomUUID()}`;
+    }
+
+    // Set request ID header on the outgoing response
+    response.setHeader('X-Request-Id', requestId);
 
     const isHttpException = exception instanceof HttpException;
     const status = isHttpException
@@ -67,12 +87,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
         }
       }
     } else {
-      // 500 Unexpected internal error: Log server-side diagnostics safely without exposing to client
+      // 500 Unexpected internal error: Log server-side diagnostics safely with credentials redacted
       const rawMessage = exception instanceof Error ? exception.message : String(exception);
-      const stack = exception instanceof Error ? exception.stack : undefined;
+      const sanitizedMessage = sanitizeDiagnosticString(rawMessage);
+      const rawStack = exception instanceof Error ? exception.stack : undefined;
+      const sanitizedStack = rawStack ? sanitizeDiagnosticString(rawStack) : undefined;
+
       this.logger.error(
-        `[${requestId}] Internal Server Error: ${rawMessage}`,
-        stack,
+        `[${requestId}] Internal Server Error: ${sanitizedMessage}`,
+        sanitizedStack,
       );
     }
 

@@ -19,6 +19,8 @@ out/
 coverage/
 .turbo/
 *.tsbuildinfo
+test-results/
+playwright-report/
 
 # Review and Generated Archives (Never track review zips in git)
 artifacts/*.zip

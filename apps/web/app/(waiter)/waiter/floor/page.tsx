@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Bell, Plus, Utensils, CheckCircle, Clock } from 'lucide-react';
+import { Bell, Plus } from 'lucide-react';
 import { Badge, Button } from '@serveflow/ui-kit';
 
 export default function WaiterFloorPage() {

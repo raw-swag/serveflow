@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Clock, CheckCircle2, AlertCircle, ChefHat } from 'lucide-react';
-import { Badge, Button } from '@serveflow/ui-kit';
+import { Clock, CheckCircle2, ChefHat } from 'lucide-react';
 
 export default function KitchenDisplayPage() {
   const [stationFilter, setStationFilter] = useState('ALL');

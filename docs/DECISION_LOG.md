@@ -37,3 +37,15 @@
 - **Context**: Physical table QR codes can be photographed, spoofed, or maliciously abused outside the restaurant.
 - **Decision**: QR codes embed HMAC-SHA256 signed tokens encoding tenant, outlet, table, and a revocable token version.
 - **Consequence**: Instant one-click revocation of compromised table QR codes without changing physical table numbering.
+
+## ADR-006: Node.js 26 Active LTS Runtime Standard & Next.js 16 (Turbopack)
+- **Status**: Accepted (Implemented in Phase 01.1 & Phase 01.2)
+- **Context**: Ensure the long-term runtime foundation is on modern Active LTS releases with official support lifecycle and optimal Turbopack compilation.
+- **Decision**: Standardize on Node.js 26.13.1 (Active LTS) with npm 11.20.0, Next.js 16.4.6, React 19.0.0, and root engine `>=20.9.0`.
+- **Consequence**: Full access to latest V8 optimizations, Web Streams API performance, and zero deprecated runtime warnings.
+
+## ADR-007: Automated Route Smoke Testing with Playwright
+- **Status**: Accepted (Implemented in Phase 01.2)
+- **Context**: Need real browser verification of all 8 core application route groups against production builds before deployment.
+- **Decision**: Integrate `@playwright/test` running automated headless browser passes against the built Next.js web application.
+- **Consequence**: Verifies end-to-end HTTP 200 delivery, DOM rendering, and CSS theme application with zero manual intervention.

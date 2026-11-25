@@ -6,8 +6,6 @@ import {
   ReceiptIndianRupee,
   UtensilsCrossed,
   QrCode,
-  Store,
-  ArrowUpRight,
   Clock,
 } from 'lucide-react';
 import { MetricCard, CurrencyDisplay, Badge, Button } from '@serveflow/ui-kit';

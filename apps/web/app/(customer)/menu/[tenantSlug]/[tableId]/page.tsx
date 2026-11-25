@@ -1,7 +1,7 @@
 'use client';
 
-import React, { use } from 'react';
-import { ShoppingBag, ChevronRight, Check } from 'lucide-react';
+import React from 'react';
+import { ChevronRight } from 'lucide-react';
 import { DietaryBadge, CurrencyDisplay, Badge, Button } from '@serveflow/ui-kit';
 
 export default function CustomerQrMenuPage({
@@ -9,7 +9,7 @@ export default function CustomerQrMenuPage({
 }: {
   params: Promise<{ tenantSlug: string; tableId: string }>;
 }) {
-  const resolvedParams = use(params);
+  const resolvedParams = React.use(params);
   const [activeCategory, setActiveCategory] = React.useState('Starters');
   const [dietaryFilter, setDietaryFilter] = React.useState<'ALL' | 'VEG'>('ALL');
   const [cart, setCart] = React.useState<Array<{ id: string; name: string; price: number; qty: number }>>([
