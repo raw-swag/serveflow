@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { use } from 'react';
 import { ShoppingBag, ChevronRight, Check } from 'lucide-react';
 import { DietaryBadge, CurrencyDisplay, Badge, Button } from '@serveflow/ui-kit';
 
 export default function CustomerQrMenuPage({
   params,
 }: {
-  params: { tenantSlug: string; tableId: string };
+  params: Promise<{ tenantSlug: string; tableId: string }>;
 }) {
-  const [activeCategory, setActiveCategory] = useState('Starters');
-  const [dietaryFilter, setDietaryFilter] = useState<'ALL' | 'VEG'>('ALL');
-  const [cart, setCart] = useState<Array<{ id: string; name: string; price: number; qty: number }>>([
+  const resolvedParams = use(params);
+  const [activeCategory, setActiveCategory] = React.useState('Starters');
+  const [dietaryFilter, setDietaryFilter] = React.useState<'ALL' | 'VEG'>('ALL');
+  const [cart, setCart] = React.useState<Array<{ id: string; name: string; price: number; qty: number }>>([
     { id: '1', name: 'Paneer Tikka Angara', price: 340, qty: 1 },
     { id: '2', name: 'Garlic Naan (Butter)', price: 65, qty: 2 },
   ]);
@@ -83,7 +84,9 @@ export default function CustomerQrMenuPage({
               <h1 className="text-base font-bold font-headline text-light-primary">
                 Tamarind & Co.
               </h1>
-              <p className="text-[11px] text-gray-500">Table: {params.tableId || 'T-04'}</p>
+              <p className="text-[11px] text-gray-500">
+                Table: {resolvedParams?.tableId || 'T-04'} ({resolvedParams?.tenantSlug || 'demo'})
+              </p>
             </div>
           </div>
           <Badge variant="success">Kitchen Open</Badge>

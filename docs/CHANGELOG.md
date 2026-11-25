@@ -7,34 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1] - 2026-11-25
+
+### Fixed - Phase 01.1: Foundation Stabilization, Security Corrections & Quality Gate Remediation
+- **Frontend Upgrade to Next.js 16 (Turbopack)**:
+  - Upgraded `apps/web` to Next.js `16.4.6` and React / React DOM `19.0.0`.
+  - Migrated dynamic route parameters to asynchronous resolution pattern (`use(params)` for `app/(customer)/menu/[tenantSlug]/[tableId]/page.tsx`).
+  - Successfully validated 10/10 pre-rendered static routes and dynamic routes compiled via Turbopack in sub-2s.
+- **Node.js Policy & Engine Modernization**:
+  - Added `.nvmrc` specifying Node.js `26.13.1` (Active LTS).
+  - Modernized `package.json` engines to `>=20.0.0` to permit installation on modern patched Node.js releases.
+  - Upgraded `@types/node` across workspaces to `22.13.14`.
+- **CORS Security Hardening**:
+  - Replaced insecure wildcard credential reflection in `apps/api/src/main.ts` with strict `configureCors()` allowlist helper.
+  - Sourced explicit allowed origins from validated `CORS_ORIGINS` environment variable.
+  - Added automated test suite `apps/api/src/common/cors.spec.ts` covering allowed origins, rejected origins, and credentials policy.
+- **API Information Disclosure Prevention**:
+  - Hardened `AllExceptionsFilter` in `apps/api/src/common/all-exceptions.filter.ts`.
+  - Guaranteed that unexpected 500 errors return sanitized public error messages without exposing SQL statements, environment paths, or stack traces.
+  - Added server-side correlation IDs (`requestId`) and diagnostic logger.
+  - Added unit test suite `all-exceptions.filter.spec.ts` verifying zero data leakage on fatal internal errors.
+- **Centralized Environment Validation**:
+  - Implemented `validateEnv()` in `apps/api/src/common/env.validation.ts` using Zod schema.
+  - Validates `NODE_ENV`, `PORT`, and `CORS_ORIGINS` on application bootstrap.
+  - Added unit test suite `env.validation.spec.ts`.
+- **Real Quality Gate Tooling (Replaced Placeholders)**:
+  - Removed all `echo ... lint ok` placeholder scripts across all workspaces.
+  - Configured actual TypeScript-aware ESLint 8.57 across `apps/api`, `apps/web`, and `packages/ui-kit`.
+  - Configured real test runners across all workspaces (`jest` for API, node test runner for validation & UI kit, route test suite for Next.js).
+- **Completed Shared UI Kit (`@serveflow/ui-kit`)**:
+  - Implemented all 14 required reusable components: `Button`, `IconButton`, `Badge`, `StatusIndicator`, `Card`, `MetricCard`, `Input`, `SearchInput`, `Tabs`, `Modal`, `DataTable`, `CurrencyDisplay`, `DietaryBadge`, `TicketTimer`.
+  - Added component test runner verifying formatting and component function signatures.
+- **Git & Artifact Hygiene**:
+  - Removed generated review ZIP binaries from git tracking via updated `.gitignore` (`artifacts/*.zip`).
+  - Created review package `artifacts/serveflow-phase-01-remediation-review.zip` (untracked).
+
+---
+
 ## [0.2.0] - 2026-11-25
 
 ### Added - Phase 01: Project Foundation, Monorepo Scaffolding & UI Design System
-- **Monorepo Architecture (`npm workspaces`)**:
-  - Configured root workspace targeting Node.js v22.12.0 LTS and npm 10.9.0.
-  - Established shared packages:
-    - `@serveflow/shared-types`: Common API response envelopes, user roles, table/order statuses, and DTO contracts.
-    - `@serveflow/validation`: Shared Zod validation schemas with Indian GSTIN and FSSAI regex validators.
-    - `@serveflow/ui-kit`: Official Google Stitch design system tokens (`colors.light`, `colors.dark`, typography, radii, spacing) and reusable typed React components (`Button`, `Badge`, `MetricCard`, `CurrencyDisplay`, `DietaryBadge`).
-- **NestJS Backend Engine (`apps/api`)**:
-  - NestJS 10.3 API bootstrap listening on port 4000 with global prefix `/api/v1`.
-  - Global `AllExceptionsFilter` normalizing all HTTP and internal errors into standard JSON envelopes.
-  - Global `TransformInterceptor` wrapping successful responses into `{ success: true, statusCode, message, data, meta }`.
-  - Live `HealthController` responding at `/api/v1/health` with automated unit test suite.
-- **Next.js 14 Frontend Application (`apps/web`)**:
-  - Next.js 14.2 App Router frontend listening on port 3000.
-  - Configured Google Fonts via `@next/font/google`: `Red Hat Text` (Display/Headlines), `Instrument Sans` (Body/Labels), and `Spline Sans Mono` (Currency/Timers).
-  - Implemented 8 distinct visual route skeletons based on Google Stitch references:
-    - `/admin/overview` (Super Admin SaaS Control Plane)
-    - `/owner/dashboard` (Multi-outlet Owner Executive Analytics)
-    - `/owner/menu` (Dynamic Menu Engineering & 86 Availability Toggle)
-    - `/manager/operations` (Live Floor Operations & Table Grid)
-    - `/waiter/floor` (Waiter Mobile Floor Companion)
-    - `/pos/register` (Cashier POS, Split Billing & GST Calculation)
-    - `/kds/pass` (Dedicated Dark Mode Kitchen Display Pass)
-    - `/menu/[tenantSlug]/[tableId]` (Customer Mobile QR Self-Ordering)
-- **Review Artifact**:
-  - Packaged clean review bundle at `artifacts/serveflow-phase-01-review.zip`.
+- Monorepo architecture with npm workspaces.
+- Shared packages (`@serveflow/shared-types`, `@serveflow/validation`, `@serveflow/ui-kit`).
+- NestJS API with global response wrappers and health check.
+- Next.js App Router route skeletons translating official Google Stitch designs.
 
 ---
 

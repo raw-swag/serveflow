@@ -11,7 +11,7 @@ node_modules/
 .env.production.local
 *.env
 
-# Build Outputs
+# Build Outputs & Bundler Caches
 dist/
 build/
 .next/
@@ -19,6 +19,10 @@ out/
 coverage/
 .turbo/
 *.tsbuildinfo
+
+# Review and Generated Archives (Never track review zips in git)
+artifacts/*.zip
+*.zip
 
 # Logs
 npm-debug.log*

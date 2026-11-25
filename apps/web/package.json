@@ -6,24 +6,27 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "test": "echo \"@serveflow/web smoke tests ok\"",
+    "test": "node test/routes.test.js",
     "typecheck": "tsc --noEmit",
-    "lint": "echo \"@serveflow/web lint ok\""
+    "lint": "eslint \"app/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@serveflow/shared-types": "*",
     "@serveflow/ui-kit": "*",
     "@serveflow/validation": "*",
     "lucide-react": "0.395.0",
-    "next": "14.2.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "next": "16.4.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.14.9",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
+    "@types/node": "22.13.14",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
     "autoprefixer": "10.4.19",
+    "eslint": "8.57.0",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.4",
     "typescript": "5.4.5"
